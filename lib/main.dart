@@ -21,9 +21,11 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<FetchAllCoinsBloc>(
-            create: (context) => FetchAllCoinsBloc()),
+          create: (context) => FetchAllCoinsBloc(),
+        ),
         BlocProvider<FetchCoinChartBloc>(
-            create: (context) => FetchCoinChartBloc()),
+          create: (context) => FetchCoinChartBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
