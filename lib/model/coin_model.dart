@@ -20,8 +20,17 @@ class CoinModel {
     symbol = json['symbol'];
     name = json['name'];
     image = json['image'];
-    currentPrice = json['current_price'].toDouble();
+    currentPrice = json['current_price'];
     priceChangePercentage24h = json['price_change_percentage_24h'];
+  }
+
+  CoinModel.fromCryptoCompareJson(dynamic json) {
+    id = json['CoinInfo']['Name'];
+    symbol = json['CoinInfo']['Name'];
+    name = json['CoinInfo']['FullName'];
+    image = 'https://www.cryptocompare.com' + json['CoinInfo']['ImageUrl'];
+    currentPrice = (json['RAW']['USD']['PRICE'] as num).toDouble();
+    priceChangePercentage24h = json['RAW']['USD']['CHANGEPCT24HOUR'];
   }
 
   Map<String, dynamic> toJson() {

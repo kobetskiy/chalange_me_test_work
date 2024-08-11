@@ -35,7 +35,7 @@ class _CoinTileState extends State<CoinTile>
 
     _fadeAnimation = CurvedAnimation(
       parent: _controller,
-      curve: Interval(0.0, 1.0, curve: Curves.easeIn),
+      curve: const Interval(0.0, 1.0, curve: Curves.easeIn),
     );
 
     _slideAnimation = Tween<Offset>(
@@ -44,7 +44,7 @@ class _CoinTileState extends State<CoinTile>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 1.0, curve: Curves.easeInOut),
+        curve: const Interval(0.0, 1.0, curve: Curves.easeInOut),
       ),
     );
 
@@ -105,7 +105,7 @@ class _CoinTileState extends State<CoinTile>
                           children: [
                             Text(
                               widget.coin.name ?? '',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
@@ -119,7 +119,8 @@ class _CoinTileState extends State<CoinTile>
                           const SizedBox(height: 20),
                           Text(
                             CurrencyNumberFormatter.idr(
-                                widget.coin.currentPrice!),
+                              widget.coin.currentPrice!
+                            ),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -127,8 +128,8 @@ class _CoinTileState extends State<CoinTile>
                           ),
                           Text(
                             widget.coin.priceChangePercentage24h! > 0
-                                ? '+${widget.coin.priceChangePercentage24h}%'
-                                : '${widget.coin.priceChangePercentage24h}%',
+                                ? '+${widget.coin.priceChangePercentage24h.toString().substring(0, 6)}%'
+                                : '${widget.coin.priceChangePercentage24h.toString().substring(0, 7)}%',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,

@@ -27,7 +27,7 @@ class _DetailPageState extends State<DetailPage> {
         appBar: AppBar(
           title: Text(
             widget.coin.name!,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -45,9 +45,9 @@ class _DetailPageState extends State<DetailPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _CoinDetailsWidget(coin: widget.coin),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         CoinChartWidget(coin: widget.coin, state: state),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -55,40 +55,40 @@ class _DetailPageState extends State<DetailPage> {
                               coin: widget.coin,
                               isSelected: selectedIndex == 0,
                               onPressed: () {
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
+                                selectedIndex = 0;
+                                if (selectedIndex == 0) return;
+                                setState(() {});
                                 context.read<FetchCoinChartBloc>().add(
                                     FetchChartData(
                                         coin: widget.coin, days: '1'));
                               },
-                              child: Text('24H'),
+                              child: const Text('24H'),
                             ),
                             SwitchChartTimeButton(
                               coin: widget.coin,
                               isSelected: selectedIndex == 1,
                               onPressed: () {
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
+                                if (selectedIndex == 1) return;
+                                selectedIndex = 1;
+                                setState(() {});
                                 context.read<FetchCoinChartBloc>().add(
                                     FetchChartData(
                                         coin: widget.coin, days: '7'));
                               },
-                              child: Text('7D'),
+                              child: const Text('7D'),
                             ),
                             SwitchChartTimeButton(
                               coin: widget.coin,
                               isSelected: selectedIndex == 2,
                               onPressed: () {
-                                setState(() {
-                                  selectedIndex = 2;
-                                });
+                                if (selectedIndex == 2) return;
+                                selectedIndex = 2;
+                                setState(() {});
                                 context.read<FetchCoinChartBloc>().add(
                                     FetchChartData(
                                         coin: widget.coin, days: '30'));
                               },
-                              child: Text('30D'),
+                              child: const Text('30D'),
                             ),
                           ],
                         ),
@@ -100,7 +100,7 @@ class _DetailPageState extends State<DetailPage> {
             } else if (state is FetchCoinChartFailure) {
               return Center(child: Text(state.error.toString()));
             }
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),
@@ -122,12 +122,12 @@ class _CoinDetailsWidget extends StatelessWidget {
         children: [
           Text(
             '${coin.name} Price',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             CurrencyNumberFormatter.idr(coin.currentPrice!),
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -135,11 +135,11 @@ class _CoinDetailsWidget extends StatelessWidget {
                   fontSize: 28,
                 ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             coin.priceChangePercentage24h! > 0
-                ? '+${coin.priceChangePercentage24h}%'
-                : '${coin.priceChangePercentage24h}%',
+                ? '+${coin.priceChangePercentage24h.toString().substring(0, 6)}%'
+                : '${coin.priceChangePercentage24h.toString().substring(0, 7)}%',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
